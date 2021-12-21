@@ -1,24 +1,30 @@
 import React from "react";
-import classNames from "classnames";
-import { action } from "@storybook/addon-actions/dist/preview";
-import InterviewerListItem from "components/InterviewerListItem";
-import "components/InterviewerList.scss";
-import "components/InterviewerListItem.scss";
+import InterviewerListItem from "./InterviewerListItem";
+import 'components/InterviewerList.scss'
 
 export default function InterviewerList(props) {
-  const { interviewers, interviewer, setInterviewer, selected } = props;
-  const parsedInterviewers = interviewers.map(oneInterviewer => 
-    <InterviewerListItem key={oneInterviewer.id}
-      name={oneInterviewer.name}
-      avatar={oneInterviewer.avatar}
-      selected={selected}
-      setInterviewer={() => action("setInterviewer")(oneInterviewer.id)}
+  const { interviewers, onChange, value } = props;
+  console.log(props)
+
+  const interviewerList = interviewers.map((item) => {
+    const { id, name, avatar } = item;
+
+    return <InterviewerListItem
+      key={ id }
+      name={ name }
+      avatar={ avatar }
+      selected={ value === id }
+      onChange={ (e) => onChange(id) }
     />
-  );
+  })
+
   return (
     <section className="interviewers">
       <h4 className="interviewers__header text--light">Interviewer</h4>
-      <ul className='interviewers__list' onClick={setInterviewer}>{parsedInterviewers}</ul>
+      <ul className="interviewers__list">
+        { interviewerList }
+      </ul>
     </section>
   );
+
 }; 
