@@ -2,6 +2,7 @@ import React from "react";
 
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { actions } from "@storybook/addon-actions/dist/preview";
 
 import "index.scss";
 
@@ -10,6 +11,13 @@ import DayListItem from "components/DayListItem";
 import DayList from "components/DayList";
 import InterviewerList from "components/InterviewerList";
 import InterviewerListItem from "components/InterviewerListItem";
+import Appointment from "components/Appointment/index.jsx";
+import Header from "components/Appointment/Header";
+import Empty from "components/Appointment/Empty";
+import Show from "components/Appointment/Show";
+import Confirm from "components/Appointment/Confirm";
+
+import Error from "components/Appointment/Error";
 storiesOf("Button", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
@@ -133,5 +141,16 @@ storiesOf("InterviewerListItem", module)
     />
   )); 
 
-
+  storiesOf("Appointment", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("Appointment", () => <Appointment />)
+  .add("Appointment with Time", () => <Appointment time="12pm" />)
+  .add("Header", () => <Header time='12pm'/>)
+  .add('Empty', () => <Empty onAdd={action('onAdd')} />)
+  .add('Show', () => <Show onEdit={action('onEdit')} onDelete={action('onDelete')} />)
+  .add('Confirm', () => <Confirm onCancel={action('onCancel')} onConfirm={action('onConfirm')} />)
+  .add("Status", () => <Status message='Deleting'/>)
+  .add("Error", () => <Error message='Could not delete appointment.' onClose={action('onClose')} />)
 
