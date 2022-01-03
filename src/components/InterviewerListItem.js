@@ -19,7 +19,7 @@ export default function InterviewerListItem(props) {
         src={ avatar }
         alt={ name }
       />
-      { props.selected && props.name }
+      { selected && name }
     </li>
   );
-} 
+}
